@@ -98,6 +98,8 @@ pub fn main() {
     // Start the loop as long as the value of the "Example" thread key is true.
     while dynamic::get_thread_key("Example") {
           PXScript::execute("global/Horse.AddForce(1, 0, 1);", false);
+          // Wait for 1 second before executing the code again.
+          dynamic::sleep_secs(1);
     }
 }
 ```
