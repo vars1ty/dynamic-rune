@@ -1,4 +1,4 @@
-# dynamicrune
+# dynamic Rune
 dynamic Rune documentation
 
 > **Warning** Rune scripting sent over a party may be malicious, only join another party if you trust the participants!
