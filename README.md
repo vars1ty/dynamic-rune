@@ -35,14 +35,14 @@ dynamic Rune documentation
    - Arg 0: The unique thread keys name.
    - Returns: The value of that thread key.
    - Description: Gets the value of the specified thread key.
-- `dynamic::sleep_secs(u64)` -> `()`
+- `task::sleep_secs(u64)` -> `Future`
    - Arg 0: How long (in seconds) the thread should be put to sleep for.
-   - Returns: Nothing.
-   - Description: Puts the current script thread to sleep for *x* amount of seconds. All scripts run on their own thread.
-- `dynamic::sleep_ms(u64)` -> `()`
+   - Returns: Future.
+   - Description: Puts the current script thread to sleep for *x* amount of seconds. All scripts asynchronously.
+- `task::sleep_ms(u64)` -> `Future`
    - Arg 0: How long (in milliseconds) the thread should be put to sleep for.
-   - Returns: Nothing.
-   - Description: Puts the current script thread to sleep for *x* amount of milliseconds. All scripts run on their own thread.
+   - Returns: Future.
+   - Description: Puts the current script thread to sleep for *x* amount of milliseconds. All scripts run asynchronously.
 
 ## Custom Keywords
 - `import (file).rn`
@@ -50,7 +50,7 @@ dynamic Rune documentation
    ```rust
    import something.rn
    
-   pub fn main() {
+   pub async fn main() {
        // "import" has to be at the start of your script.
        // The imported files functions are now available for use in this script.
    }
@@ -60,7 +60,7 @@ dynamic Rune documentation
 ## Usage Examples
 1. Adding force to the currently mounted horse
 ```rust
-pub fn main() {
+pub async fn main() {
     // Add force to X, Y and Z.
     PXScript::execute("global/Horse.AddForce(1, 0, 1);", false);
     
@@ -76,7 +76,7 @@ fn add_force(x, y, z) {
 
 2. Defining variables and using them
 ```rust
-pub fn main() {
+pub async fn main() {
     // A standard, basic variable that can have its value changed.
     let my_string = "Hello World";
     // Change the value to "Bye World"
@@ -91,7 +91,7 @@ pub fn main() {
 
 3. Execute a script every second
 ```rust
-pub fn main() {
+pub async fn main() {
     // Create a thread key so that we can stop the while-loop whenever we want in a new script.
     dynamic::create_thread_key("Example");
     
@@ -99,14 +99,15 @@ pub fn main() {
     while dynamic::get_thread_key("Example") {
           PXScript::execute("global/Horse.AddForce(1, 0, 1);", false);
           // Wait for 1 second before executing the code again.
-          dynamic::sleep_secs(1);
+          // As the sleep* function returns a future, you have to call await on it from inside an asynchronous function.
+          task::sleep_secs(1).await;
     }
 }
 ```
 
 4. Stop a looping script
 ```rust
-pub fn main() {
+pub async fn main() {
     // Replace "Example" with the name of your thread key.
     dynamic::set_thread_key_value("Example", false);
     // The loop should now stop after compiling.
