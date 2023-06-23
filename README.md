@@ -36,7 +36,7 @@ dynamic Rune documentation
    - Returns: The value of that thread key.
    - Description: Gets the value of the specified thread key.
 - `dynamic::is_key_down(string)` -> `bool`
-   - Arg 0: The key identifier. Only A-Z, Control, Space, Left and Right are currently supported.
+   - Arg 0: The key identifier. Only A-Z, Control, Space, Left, Right, Up and Down are currently supported.
    - Returns: `true` if the key is pressed
    - Description: Checks if the given key is being pressed. Should be used in a loop.
 - `task::sleep_secs(u64)` -> `Future`
@@ -121,7 +121,7 @@ pub async fn main() {
 5. Listen for keybindings
 ```rust
 pub async fn main() {
-    // Note: Only keys from A-Z, Control, Space, Left and Right are currently supported.
+    // Note: Only keys from A-Z, Control, Space, Left, Right Up and Down are currently supported.
     dynamic::create_thread_key("keybind");
     while dynamic::get_thread_key("keybind") {
         if dynamic::is_key_down("A") {
