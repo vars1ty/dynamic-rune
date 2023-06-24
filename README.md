@@ -47,7 +47,19 @@ dynamic Rune documentation
    - Arg 0: How long (in milliseconds) the thread should be put to sleep for.
    - Returns: Future.
    - Description: Puts the current script thread to sleep for *x* amount of milliseconds. All scripts run asynchronously.
-
+- `math::to_radians(f32)` -> `f32`
+   - Arg 0: Input value
+   - Returns: The value in radians.
+   - Description: Gets the radians of the input value, in radians. Useful when you want to get the angle of *x* and so on.
+- `math::sin(f32)` -> `f32`
+   - Arg 0: Input value
+   - Returns: The computed sine.
+   - Description: Gets the computed sine value of the input value, in radians.
+- `math::cos(f32)` -> `f32`
+   - Arg 0: Input value
+   - Returns: The computed cosine.
+   - Description: Gets the computed cosine value of the input value, in radians.
+ 
 ## Custom Keywords
 - `import (file).rn`
    - Usage Example:
