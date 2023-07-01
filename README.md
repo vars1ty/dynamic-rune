@@ -59,6 +59,18 @@ dynamic Rune documentation
    - Arg 0: Input value
    - Returns: The computed cosine.
    - Description: Gets the computed cosine value of the input value, in radians.
+- `windows::get_cursor_x()` -> `f32`
+   - Returns: The X-coordinate of your cursor.
+   - Description: Returns the X-coordinate of your cursor as a f32, so that it's suitable for the math operations included.
+- `windows::get_cursor_y()` -> `f32`
+   - Returns: THe Y-coordinate of your cursor.
+   - Description: Returns the Y-coordinate of your cursor as a f32, so that it's suitable for the math operations included.
+- `windows::show_alert(string, string)` -> `()`
+   - Arg 0: Title string.
+   - Arg 1: Message string.
+   - Returns: Nothing.
+   - Description: Shows a basic Windows alert message.
+   - > **Warning** This blocks the executing thread until the dialog box has been closed.
  
 ## Custom Keywords
 - `import (file).rn`
