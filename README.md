@@ -27,11 +27,16 @@ dynamic Rune documentation
     - Returns: The hexadecimal i64 as a standard i64. `0` if parsing failed.
     - Description: Takes a hexadecimal i64 value (ex: `0x1AD41E`) and attempts to convert it to its standard i64 form.
     - This is **required** for memory-related operations, the string should preferably always start with `0x`.
-- `PXScript::execute(string, bool)` -> `()`
+- `PXScript::execute(string, bool, bool)` -> `()`
    - Arg 0: The PXScript you want to execute.
    - Arg 1: Should this script be sent to the connected party? This is usually unwanted unless you're creating advanced scripts.
+   - Arg 2: Should the script be queued for execution on the main thread?
    - Returns: Nothing.
    - Description: Executes the given script and optionally sends it to the active party.
+   - > **Warning** Setting a script to execute on the main thread isn't as reliable as without, although it may hinder some crashes.
+     > 
+     > Note that using the `task::sleep*` functions in-between each queued main thread call **will not work**, and your code that
+     > has been scheduled for execution on the main thread will get lost. 
 - `dynamic::create_thread_key(string)` -> `()`
    - Arg 0: The unique thread keys name.
    - Returns: Nothing.
@@ -113,7 +118,7 @@ dynamic Rune documentation
 ```rust
 pub async fn main() {
     // Add force to X, Y and Z.
-    PXScript::execute("global/Horse.AddForce(1, 0, 1);", false);
+    PXScript::execute("global/Horse.AddForce(1, 0, 1);", false, false);
     
     // Or as a custom function:
     add_force(1, 0, 1);
@@ -121,7 +126,7 @@ pub async fn main() {
  
 fn add_force(x, y, z) {
     // Use `` over "" for when you want to embed variables into a string.
-    PXScript::execute(`global/Horse.AddForce(${x}, ${y}, ${z});`, false);
+    PXScript::execute(`global/Horse.AddForce(${x}, ${y}, ${z});`, false, false);
 }
 ```
 
@@ -148,7 +153,7 @@ pub async fn main() {
     
     // Start the loop as long as the value of the "Example" thread key is true.
     while dynamic::get_thread_key("Example") {
-          PXScript::execute("global/Horse.AddForce(1, 0, 1);", false);
+          PXScript::execute("global/Horse.AddForce(1, 0, 1);", false, false);
           // Wait for 1 second before executing the code again.
           // As the sleep* function returns a future, you have to call await on it from inside an asynchronous function.
           task::sleep_secs(1).await;
