@@ -36,7 +36,7 @@ dynamic Rune documentation
    - > **Warning** Setting a script to execute on the main thread isn't as reliable as without, although it may hinder some crashes.
      > 
      > Note that using the `task::sleep*` functions in-between each queued main thread call **will not work**, and your code that
-     > has been scheduled for execution on the main thread will get lost. 
+     > has been scheduled for execution on the main thread after the delay, will get lost. 
 - `dynamic::create_thread_key(string)` -> `()`
    - Arg 0: The unique thread keys name.
    - Returns: Nothing.
