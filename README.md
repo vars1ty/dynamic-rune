@@ -17,6 +17,16 @@ dynamic Rune documentation
    - Arg 0: The string you want to be parsed as the specified type.
    - Returns: The number type you specified.
    - Description: Attempts to parse the input String as a specified number type, such as `i32`, `u8` or `f32`.
+- `parse::hex_i32_to_i32(string)` -> `i32`
+    - Arg 0: Hexadecimal i32.
+    - Returns: The hexadecimal i32 as a standard i32. `0` if parsing failed.
+    - Description: Takes a hexadecimal i32 value (ex: `0x1AD41E`) and attempts to convert it to its standard i32 form.
+    - This is **required** for memory-related operations, the string should preferably always start with `0x`.
+- `parse::hex_i64_to_i64(string)` -> `i64`
+    - Arg 0: Hexadecimal i64.
+    - Returns: The hexadecimal i64 as a standard i64. `0` if parsing failed.
+    - Description: Takes a hexadecimal i64 value (ex: `0x1AD41E`) and attempts to convert it to its standard i64 form.
+    - This is **required** for memory-related operations, the string should preferably always start with `0x`.
 - `PXScript::execute(string, bool)` -> `()`
    - Arg 0: The PXScript you want to execute.
    - Arg 1: Should this script be sent to the connected party? This is usually unwanted unless you're creating advanced scripts.
@@ -59,6 +69,9 @@ dynamic Rune documentation
    - Arg 0: Input value
    - Returns: The computed cosine.
    - Description: Gets the computed cosine value of the input value, in radians.
+- `math::pi()` -> `f32`
+    - Returns: The PI value of `f32`.
+    - Description: Gets the PI value of `f32` and returns it.
 - `windows::get_cursor_x()` -> `f32`
    - Returns: The X-coordinate of your cursor.
    - Description: Returns the X-coordinate of your cursor as a f32, so that it's suitable for the math operations included.
@@ -71,6 +84,16 @@ dynamic Rune documentation
    - Returns: Nothing.
    - Description: Shows a basic Windows alert message.
    - > **Warning** This blocks the executing thread until the dialog box has been closed.
+- `windows::alloc_console()` -> `()`
+   - Returns: Nothing.
+   - Description: Attempts to allocate a console window.
+- `memory::write_string(i32/i64, string)` -> `()`
+   - Arg 0: The address in its normal i32/i64 form.
+   - Arg 1: The string to be written.
+   - Returns: Nothing.
+   - Description: Attempts to write a string to the specified memory location. The string is always null-terminated before writing.
+   - > **Note** The address cannot be hexadecimal, it has to be a standard i32/i64. Use `parse::hex_i32_to_i32` or `parse::hex_i64_to_i64` to convert a hexadecimal integer to its standard form.
+   - > **Warning** Dangerous function, may crash your game or cause undefined behavior.
  
 ## Custom Keywords
 - `import (file).rn`
