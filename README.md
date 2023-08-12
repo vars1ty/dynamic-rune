@@ -36,7 +36,14 @@ dynamic Rune documentation
    - > **Warning** Setting a script to execute on the main thread isn't as reliable as without, although it may hinder some crashes.
      > 
      > Note that using the `task::sleep*` functions in-between each queued main thread call **will not work**, and your code that
-     > has been scheduled for execution on the main thread after the delay, will get lost. 
+     > has been scheduled for execution on the main thread after the delay, will get lost.
+- `PXScript::execute_on_all(string)` -> ` ()`
+   - Arg 0: The script to be executed.
+   - Returns: Nothing.
+   - Description: Unlike `execute()`, this executes a script on all cached horses that dynamic has collected.
+   - It doesn't use the same `global/`-like syntax in this case. If you want to set the scale of all horses
+   - Use `parent.SetScale(2, 2, 2);` as `parent` is the horse.
+   - > **Warning** This may break your game temporarily until you restart, as it's a newer feature.
 - `dynamic::create_thread_key(string)` -> `()`
    - Arg 0: The unique thread keys name.
    - Returns: Nothing.
@@ -80,9 +87,11 @@ dynamic Rune documentation
 - `windows::get_cursor_x()` -> `f32`
    - Returns: The X-coordinate of your cursor.
    - Description: Returns the X-coordinate of your cursor as a f32, so that it's suitable for the math operations included.
+   - The coordinates are window-space coordinates, and **not** OS-level coordinates.
 - `windows::get_cursor_y()` -> `f32`
    - Returns: THe Y-coordinate of your cursor.
    - Description: Returns the Y-coordinate of your cursor as a f32, so that it's suitable for the math operations included.
+   - The coordinates are window-space coordinates, and **not** OS-level coordinates.
 - `windows::show_alert(string, string)` -> `()`
    - Arg 0: Title string.
    - Arg 1: Message string.
