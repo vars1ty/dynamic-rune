@@ -216,6 +216,6 @@ pub async fn main() {
 ```rust
 pub async fn main() {
     ui::add_label("label 0", "Press the button below to show a message in the terminal!");
-    ui::add_button("button 0", `pub async fn main() { dynamic::log("Hello World!") }`);
+    ui::add_button("button 0", `pub async fn main() { dynamic::log("Hello World!"); }`);
     // Using `` over  "" for the code string, as it's easier to work with in this case.
 }
