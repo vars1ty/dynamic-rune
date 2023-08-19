@@ -113,9 +113,10 @@ dynamic Rune documentation
    - Arg 1: The label content.
    - Returns: Nothing.
    - Description: Adds a new label widget to the custom ui.
-- `ui::add_button(string, string)` -> `()`
+- `ui::add_button(string, string, string)` -> `()`
    - Arg 0: Unique Widget identifier.
-   - Arg 1: Rune code to be executed upon pressing the button.
+   - Arg 1: Button text.
+   - Arg 2: Rune code to be executed upon pressing the button.
    - Returns: Nothing.
    - Description: Adds a new button widget to the custom ui, with custom Rune code which is executed when you press on it.
 - `ui::add_separator(string)` -> `()`
@@ -216,6 +217,6 @@ pub async fn main() {
 ```rust
 pub async fn main() {
     ui::add_label("label 0", "Press the button below to show a message in the terminal!");
-    ui::add_button("button 0", `pub async fn main() { dynamic::log("Hello World!"); }`);
+    ui::add_button("button 0", "Press me!", `pub async fn main() { dynamic::log("Hello World!"); }`);
     // Using `` over  "" for the code string, as it's easier to work with in this case.
 }
