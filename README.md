@@ -108,6 +108,24 @@ dynamic Rune documentation
    - Description: Attempts to write a string to the specified memory location. The string is always null-terminated before writing.
    - > **Note** The address cannot be hexadecimal, it has to be a standard i32/i64. Use `parse::hex_i32_to_i32` or `parse::hex_i64_to_i64` to convert a hexadecimal integer to its standard form.
    - > **Warning** Dangerous function, may crash your game or cause undefined behavior.
+- `ui::add_label(string, string)` -> `()`
+   - Arg 0: Unique Widget identifier.
+   - Arg 1: The label content.
+   - Returns: Nothing.
+   - Description: Adds a new label widget to the custom ui.
+- `ui::add_button(string, string)` -> `()`
+   - Arg 0: Unique Widget identifier.
+   - Arg 1: Rune code to be executed upon pressing the button.
+   - Returns: Nothing.
+   - Description: Adds a new button widget to the custom ui, with custom Rune code which is executed when you press on it.
+- `ui::add_separator(string)` -> `()`
+   - Arg 0: Unique Widget identifier.
+   - Returns: Nothing.
+   - Description: Adds a new separator widget to the custom ui.
+- `ui::remove_widget(string)` -> `()`
+   - Arg 0: Unique Widget identifier.
+   - Returns: Nothing.
+   - Description: Removes a widget by its unique identifier from the custom ui.
  
 ## Custom Keywords
 - `import (file).rn`
@@ -193,3 +211,11 @@ pub async fn main() {
     }
 }
 ```
+
+5. Add a custom label and button that print "Hello World!" when pressed
+```rust
+pub async fn main() {
+    ui::add_label("label 0", "Press the button below to show a message in the terminal!");
+    ui::add_button("button 0", `pub async fn main() { dynamic::log("Hello World!") }`);
+    // Using `` over  "" for the code string, as it's easier to work with in this case.
+}
